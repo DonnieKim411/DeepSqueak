@@ -1,0 +1,11 @@
+xhost + 127.0.0.1
+
+# name of container
+CONTAINER='at-docker:5000/matlab_deepsqueak:2019a'
+
+# MUST USE THIS MAC ADDRESS!
+# Matlab license wouldn't work otherwise
+MAC_ADDRESS='00:01:02:03:04:05'
+
+# run the container. note that the display port can vary from :0 to some other port
+sudo docker run -it --runtime=nvidia --mac-address=$MAC_ADDRESS -e DISPLAY=host.docker.internal:0 -e UID=$UID  -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR -v /tmp/.X11-unix:/tmp/.X11-unix:ro  --entrypoint="matlab" $CONTAINER
